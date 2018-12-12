@@ -4,7 +4,7 @@
 
 In this project, I created two python notebooks; first is intended for data-preparation and second for further data analysis.  
 
-In this end-to-end analysis,  I learned to import modules to read csv to pandas dataframe, format datatypes, visualized to understand the data, check and handle missing values, check for duplicates, munged data for time-series analysis and visualized to discover periodic patterns, create machine-learning model to predict revenue using Simple Uni-Variate Regression Analysis. I also used Tableau for data blending, and to create pretty visualization and interactive dashboard.
+In this end-to-end analysis,  I learned to import modules to read csv to pandas dataframe, format datatypes, visualized to understand the data, check and handle missing values, check for duplicates, munged data for time-series analysis and visualized to discover **Trend**, **Seasonal**, and **Cyclical** patterns, create machine-learning model to **predict revenue using Simple Uni-Variate Regression Analysis**. I also used Tableau for data blending, and to create pretty visualization and interactive dashboard.
 
 This challenge encompasses real-world situation where my Python and data science skills can come in handy. 
 
