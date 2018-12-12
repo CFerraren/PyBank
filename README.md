@@ -12,7 +12,7 @@ This challenge encompasses real-world situation where my Python and data science
 ![Revenue](data/image/revenue-per-lead.jpg)
 
 
-Tools used to create analysis:
+Tools used to analyze data and create visualization and interactive dashboard:
 
 * Python Pandas
 
