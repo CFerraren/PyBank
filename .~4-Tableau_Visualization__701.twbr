@@ -1,0 +1,675 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20181.18.1008.2110                               -->
+<workbook source-build='2018.1.6 (20181.18.1008.2110)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='budget_data_1' inline='true' name='federated.0k5r7ng0343zbx10z731a08retlr' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='budget_data_1' name='textscan.04ukvou1xlrx0z1ghbmfs15uygbr'>
+            <connection class='textscan' directory='/Users/rck/CFerraren/PyBank/data/raw' filename='budget_data_1.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation all='true' name='budget_data_1.csv+' type='union'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='date' date-parse-format='MMM-yy' name='Date' />
+            <column datatype='integer' name='Revenue' />
+            <column datatype='string' name='Table Name' />
+          </columns>
+          <relation connection='textscan.04ukvou1xlrx0z1ghbmfs15uygbr' name='budget_data_1.csv' table='[budget_data_1#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='date' date-parse-format='MMM-yy' name='Date' ordinal='0' />
+              <column datatype='integer' name='Revenue' ordinal='1' />
+            </columns>
+          </relation>
+          <relation connection='textscan.04ukvou1xlrx0z1ghbmfs15uygbr' name='budget_data_2.csv' table='[budget_data_2#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='string' name='Date' ordinal='0' />
+              <column datatype='integer' name='Revenue' ordinal='1' />
+            </columns>
+          </relation>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[budget_data_1.csv+]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Date</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[Date]</local-name>
+            <parent-name>[budget_data_1.csv+]</parent-name>
+            <remote-alias>Date</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Revenue</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Revenue]</local-name>
+            <parent-name>[budget_data_1.csv+]</parent-name>
+            <remote-alias>Revenue</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Table Name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Table Name]</local-name>
+            <parent-name>[budget_data_1.csv+]</parent-name>
+            <remote-alias>Table Name</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+      <column-instance column='[Revenue]' derivation='Avg' name='[avg:Revenue:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.48665' measure-ordering='alphabetic' measure-percentage='0.51335' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.0k5r7ng0343zbx10z731a08retlr].[avg:Revenue:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.0k5r7ng0343zbx10z731a08retlr]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Month in years'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Date]' derivation='Month' name='[mn:Date:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year-Trunc' name='[tyr:Date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='display' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' scope='rows' value='false' />
+            <format attr='title' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='c&quot;$&quot;#,##0,,.0M;(&quot;$&quot;#,##0,,.0M)' />
+            <format attr='font-size' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='8' />
+            <format attr='font-family' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='Tableau Light' />
+            <format attr='color' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='#666666' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' palette='red_green_diverging_10_0' type='interpolated' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <mark-sizing custom-mark-size-in-axis-units='1.0' mark-alignment='mark-alignment-left' mark-sizing-setting='marks-scaling-on' use-custom-mark-size='false' />
+            <encodings>
+              <color column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='1.8350828886032104' />
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-mode' value='range' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.0k5r7ng0343zbx10z731a08retlr].[mn:Date:ok] * [federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk])</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Q Rvn'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Date]' derivation='Quarter' name='[qr:Date:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year-Trunc' name='[tyr:Date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk]' field-type='quantitative' reverse='true' scope='rows' type='space' />
+            <format attr='display' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk]' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <mark-sizing custom-mark-size-in-axis-units='1.0' mark-alignment='mark-alignment-left' mark-sizing-setting='marks-scaling-on' use-custom-mark-size='false' />
+            <encodings>
+              <color column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='right' />
+                <format attr='vertical-align' value='bottom' />
+              </style-rule>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='user' />
+                <format attr='font-size' value='8' />
+                <format attr='color' value='#555555' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.0k5r7ng0343zbx10z731a08retlr].[qr:Date:ok] * [federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk])</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Sheet 8'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Date]' derivation='Quarter' name='[qr:Date:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year' name='[yr:Date:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.0k5r7ng0343zbx10z731a08retlr].[:Measure Names]'>
+            <groupfilter function='level-members' level='[:Measure Names]' />
+          </filter>
+          <slices>
+            <column>[federated.0k5r7ng0343zbx10z731a08retlr].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+              <color column='[federated.0k5r7ng0343zbx10z731a08retlr].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-color' value='#f28e2b' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</rows>
+        <cols>([federated.0k5r7ng0343zbx10z731a08retlr].[yr:Date:ok] / [federated.0k5r7ng0343zbx10z731a08retlr].[qr:Date:ok])</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Year Rvn'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year-Trunc' name='[tyr:Date:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='height' field='[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:ok]' value='63' />
+            <format attr='text-format' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='c&quot;$&quot;#,##0,,.0M;(&quot;$&quot;#,##0,,.0M)' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='size-bar' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' field-type='quantitative' max-size='1' min-size='0.005' type='centersize' />
+            <encoding attr='color' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' palette='blue_teal_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='user' />
+                <format attr='font-size' value='8' />
+                <format attr='color' value='#555555d0' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:ok]</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='YpY'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year' name='[yr:Date:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' field-type='quantitative' major-origin='0' major-show='false' major-spacing='10000000.0' minor-origin='0' minor-show='false' minor-spacing='1000000.0' scope='rows' type='space' />
+            <format attr='title' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' scope='rows' value='' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' value='c&quot;$&quot;#,##0,,.0M;(&quot;$&quot;#,##0,,.0M)' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='bottom' />
+                <format attr='text-align' value='center' />
+                <format attr='wrap' value='on' />
+              </style-rule>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='user' />
+                <format attr='font-size' value='8' />
+                <format attr='color' value='#666666' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-color' value='#8cd17d' />
+                <format attr='mark-transparency' value='157' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[yr:Date:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='monthly series'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Month-Trunc' name='[tmn:Date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0k5r7ng0343zbx10z731a08retlr].[tmn:Date:qk]' scope='cols' value='' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='10' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <trendline enable-confidence-bands='false' enable-instant-analytics='true' enabled='true' exclude-color='false' exclude-intercept='false' fit='linear' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[tmn:Date:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='quarterly series'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Quarter-Trunc' name='[tqr:Date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <trendline enable-confidence-bands='false' enable-instant-analytics='true' enabled='true' exclude-color='false' exclude-intercept='false' fit='linear' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[tqr:Date:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='yearly series'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='budget_data_1' name='federated.0k5r7ng0343zbx10z731a08retlr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0k5r7ng0343zbx10z731a08retlr'>
+            <column datatype='date' name='[Date]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Revenue]' role='measure' type='quantitative' />
+            <column-instance column='[Revenue]' derivation='Sum' name='[sum:Revenue:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Date]' derivation='Year-Trunc' name='[tyr:Date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]</rows>
+        <cols>[federated.0k5r7ng0343zbx10z731a08retlr].[tyr:Date:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' name='YpY'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Year Rvn'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Q Rvn'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='3' param='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Month in years'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='2' param='[federated.0k5r7ng0343zbx10z731a08retlr].[sum:Revenue:qk]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='monthly series'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='2' />
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='quarterly series'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='yearly series'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 8'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='5' param='[federated.0k5r7ng0343zbx10z731a08retlr].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='2' />
+      </viewpoint>
+    </window>
+  </windows>
+</workbook>
